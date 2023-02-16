@@ -54,22 +54,6 @@ namespace MyChat
             builder.Services.AddSignalR();
             builder.Services.AddScoped<IStockService, StockService>();
 
-            //builder.Services.AddSingleton<IStockService, StockService>();
-            //builder.Services.AddSingleton<IMessageService, InMemoryMessageService>();
-            //builder.Services.AddSingleton<IMessagePublisher>(sp =>
-            //{
-            //    var localhost = builder.Configuration["RabbitMQ.localhost"];
-            //    return new RabbitMQMessagePublisher(localhost);
-            //});
-            //builder.Services.AddSingleton<IMessagePublisher>(sp =>
-            //{
-            //    var factory = new ConnectionFactory() { HostName = builder.Configuration["RabbitMQ:HostName"] };
-            //    var connection = factory.CreateConnection();
-            //    var channel = connection.CreateModel();
-            //    channel.QueueDeclare(queue: "chat", durable: false, exclusive: false, autoDelete: false, arguments: null);
-            //    return new RabbitMQMessagePublisher(channel);
-            //});
-
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
