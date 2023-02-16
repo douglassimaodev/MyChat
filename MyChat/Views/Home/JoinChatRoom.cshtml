@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@model ChatRoom;
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<section style="background-color: #eee;">
+  <div class="container py-5">
+
+    <div class="row d-flex justify-content-center">
+      <div class="col-sm-8">
+
+        <div class="card" id="chat1" style="border-radius: 15px;">
+          <div
+            class="card-header d-flex justify-content-between align-items-center p-3 bg-info text-white border-bottom-0"
+            style="border-top-left-radius: 15px; border-top-right-radius: 15px;">
+            <i class="fas fa-angle-left"></i>
+            <p class="mb-0 fw-bold">Live chat (@Model.Name)</p>
+            <i class="fas fa-times"></i>
+          </div>
+          <div class="card-body">
+            <div id="messagesList"></div>
+            <br />
+            <div class="form-outline">
+              <textarea class="form-control" id="message" rows="4"></textarea>
+              <label class="form-label" for="message">Type your message</label>
+            </div>
+          </div>
+          <div class="card-footer">
+              <div class="row">
+                 <div class="col-6">
+                     <input type="button" id="sendMessage" value="Send Message" />
+                 </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+​
+@Html.Hidden("sender", @User.Identity?.Name) <!--Current logged in username-->
+@Html.Hidden("chatRoom", Model.Name) <!--Current logged in username-->
+
+
+@section Scripts
+    {
+        <script src="~/lib/microsoft/signalr/dist/browser/signalr.js"></script>
+        <script src="~/js/chat.js" asp-append-version="true"></script>
+
+        <script>
+            $(window).on('load', function() {
+                InitChat('@(@User.Identity?.Name)')
+            });
+        </script>
+}
